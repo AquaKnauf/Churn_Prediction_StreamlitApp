@@ -3,6 +3,10 @@
 import streamlit as st
 import requests
 
+import os
+
+os.environ["STREAMLIT_HOME"] = os.path.join(os.getcwd(), ".streamlit")
+
 st.set_page_config(page_title="Customer Churn Predictor", layout="centered")
 st.title("📉 Customer Churn Prediction App")
 
@@ -60,7 +64,7 @@ if submitted:
     }
 
     try:
-        response = requests.post("http://localhost:8000/predict", json=input_data)
+        response = requests.post("https://churn-prediction-81cd.onrender.com/predict", json=input_data)
         if response.status_code == 200:
             prediction = response.json()["prediction"]
             if prediction == 1:
